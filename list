@@ -1,11 +1,18 @@
 #!/usr/bin/env ruby
-# Copyright 2011 EugeneLab   
+# Copyright 2011-2017 EugeneLab   
 
 require 'rubygems'
 require 'rake'
-
-dir = ARGV[0] || File.expand_path(".")
-FileList.new(dir+"/*").each do |path|
-  name = File.basename(path)
-  puts name
+require 'socket'
+addr_infos = Socket.getifaddrs
+addr_infos.each do |addr_info|
+    if addr_info.addr
+        puts "#{addr_info.name}: #{addr_info.addr.ip_address}" if addr_info.addr.ipv4?
+    end
 end
+
+#dir = ARGV[0] || File.expand_path(".")
+#FileList.new(dir+"/*").each do |path|
+#  name = File.basename(path)
+#  puts name
+#end
