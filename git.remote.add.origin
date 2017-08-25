@@ -1,0 +1,27 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# git.remote.add.origin
+# 
+# Связь текущей рабочей директории .git с репозиторием точки на сервере $CLONE_HOST
+# 
+# Usage:
+# git.remote.add.origin
+
+if [ $# -ne 1 ]; then
+#	if [ -z $CLONE ]; then                                                                                                                    
+#		cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+#		exit                                                                                                       
+#	fi 
+	dir=`pwd`
+	point=`basename $dir`
+else
+	point=$1
+fi
+url="ssh://$point/~/.git"
+#url="ssh://$point/home/git/$point.git"
+
+echo point: $point
+echo url: $url
+
+git remote add origin $url

@@ -1,0 +1,22 @@
+#!/bin/bash
+# Copyright 2010 EugeneLab
+
+POINT=$1
+
+if [ -z $POINT ]; then
+    echo "point?"
+    read POINT
+fi
+
+HOME=/home/$POINT
+MAIL=/var/spool/mail/$POINT
+
+userdel $POINT
+
+if [ $? -ne 0 ]; then 
+	exit $?
+fi
+
+rm -R -f $HOME
+rm -R -f $MAIL
+mysql -e "DROP USER '$POINT'@'localhost';"

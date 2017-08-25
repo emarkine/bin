@@ -1,0 +1,46 @@
+#!/bin/bash
+# Copyright 2011 EugeneLab   
+# 
+# pull 0.0.2
+# 
+# Получение всех основных файлов (кроме '.*', '*.tmp' и '~*') из сервера <remote> в текущую директорию по протоколу SSH
+# <remote> директория берется за основу и с нее делается слепок на локальную директорию
+# <remote> передается аргументом командной стороки
+# Если он не передан, то ищется глобальная переменная $REMOTE и строится $remote=$REMOTE:`pwd` 
+# Если и $REMOTE не найдена, то выводится эта справка
+# 
+# usage: pull [remote]
+
+if [ $# -ne 1 ]; then
+	if [ -z $REMOTE ]; then                                                                                                                    
+		cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+		exit                                                                                                       
+	fi 
+	remote=$REMOTE:`pwd`"/"
+else
+	remote=$1
+fi 
+
+if [ -f '.exclude' ]; then
+	exclude=--exclude-from=`pwd`/.exclude 
+fi
+
+echo
+command=`basename $0` 
+echo "start: $command"
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+echo "remote: $remote"
+cmd="rsync -vrulogtzhx --progress --delete-after --exclude=.* --exclude=*.tmp --exclude=~* $exclude $remote ."
+echo $cmd
+echo
+$cmd
+echo
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+echo "stop: $command"
+echo

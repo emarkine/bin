@@ -1,0 +1,26 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# generate.certificate
+#  
+# Генерация самоподписанного сертификата на основе CSR (запроса для сертификата) для переданного первичного ключа. 
+# 
+# Usage:
+# generate.certificate point
+
+if [ $# -ne 1 ]; then
+	cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+	exit                                                                                                       
+fi 
+
+point=$1
+key=$point".key"
+csr=$point".csr"
+cert=$point".cer"
+
+echo point=$point
+echo key=$key
+echo csr=$csr
+echo cert=$cert
+
+openssl req  -sha256 -in $csr -key $key -x509 -days 365 -out $cert

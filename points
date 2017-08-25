@@ -1,0 +1,5 @@
+#!/bin/bash                                                                                                                             
+# list of points
+# Copyright 2010 EugeneLab                                                                                                              
+
+ls -1 /home

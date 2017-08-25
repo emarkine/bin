@@ -1,0 +1,38 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2010 EugeneLab                                                                                                              
+#echo new point creation  
+
+POINT=$1
+
+#if [ $POINT -ne 0 ]; then
+#	echo true
+#else
+#	echo false
+#fi
+#exit
+
+if [ -z $POINT ]; then                                                                                                                    
+	echo "point?"                                                                                                         
+	read POINT 
+fi                                                                                                                                      
+
+useradd $POINT
+
+if [ $? -ne 0 ]; then
+	echo "point $POINT exist"
+	exit -1
+fi
+                                                                                                                            
+HOME=/home/$POINT                                                                                                                        
+MAIL=/var/spool/mail/$POINT                                                                                                              
+PASSWORD=`generate.password`
+DATABASE=$POINT"_production"
+
+echo $PASSWORD | passwd --stdin $POINT	                                                                                                   
+echo "password: $PASSWORD"
+ 
+mysql -e "CREATE USER '$POINT'@'localhost' IDENTIFIED BY '$PASSWORD';"
+mysql -e "GRANT ALL PRIVILEGES ON `$DATABASE`.* TO '$POINT'@'localhost';"
+
+su - $POINT -c 'ssh-keygen -t rsa'
+                                                                                                         

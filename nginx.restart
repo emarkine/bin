@@ -1,0 +1,5 @@
+#!/bin/bash
+nginx -s stop
+nginx
+#killall -HUP nginx
+

@@ -1,0 +1,20 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2014 EugeneLab
+# 
+# put
+# 
+# Загрузка файлов из текущей директории на сервер lab в директорию /store  
+# 
+# Usage:
+# put
+
+
+dir=`pwd`
+point=`basename $dir`
+store="lab:/store/$point"
+local=$dir/*
+
+echo "local: $local"
+echo "store: $store"
+
+rsync -zuthvr --del --exclude=.*  --progress  $local $store

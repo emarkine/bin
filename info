@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# Copyright 2011 EugeneLab   
+
+require 'rubygems'
+require 'yaml'
+
+#cat $0 | grep '^\# ' | sed -e 's/^\# //'
+y = YAML.load_file ".#{ARGV[0]}.yml"
+y.each_pair { |key, value| puts "#{key}: #{value}" }

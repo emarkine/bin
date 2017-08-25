@@ -1,0 +1,17 @@
+#!/bin/sh
+# Pull all projects and points
+
+
+for project in $WORKSPACE_LIST; do
+	echo
+	echo "Project: $project"
+	cd $WORKSPACE/$project
+	gu
+done	
+
+for point in $POINT_LIST; do
+	echo
+	echo "Point: $point"
+	cd $POINT/$point
+	gu
+done	

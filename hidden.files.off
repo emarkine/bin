@@ -1,0 +1,25 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# show.hidden.files.off 0.0.1
+# 
+# Swich off show all files in the Finder
+# 
+# usage: show.hidden.files.off
+
+echo
+command=`basename $0` 
+echo "start: $command"
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+cmd="defaults write com.apple.Finder AppleShowAllFiles NO"
+echo $cmd
+$cmd
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+echo "stop: $command"
+echo

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+DIR=$1
+
+if [ -z "$1" ]; then
+	DIR=`pwd`
+fi
+
+cd $DIR
+git pull origin master

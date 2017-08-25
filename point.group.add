@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# Copyright 2010 EugeneLab   
+
+require 'rubygems'
+require 'rush'
+
+local = Rush::Box.new('localhost')
+
+def param(index,name)
+ v = ARGV[index]
+ if v
+  puts "#{name}: #{v}"
+ else
+  print "#{name}: "
+  v = gets
+ end
+ v
+end
+
+point = param(0,'point')
+group = param(1,'group')
+
+puts `usermod -a -G #{group} #{point}`

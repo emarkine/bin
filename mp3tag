@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+#
+
+require 'rubygems' 
+require 'mp3info' 
+require 'rake'
+#require 'iconv'
+require 'optiflag'
+
+#if ARGV.size < 2
+#  puts "generate mp3 tags for files in current directory"	
+#  puts "Usage: mp3tag -artist <artist> -title <title> -album <album>"
+#  exit -1
+#end
+
+WINDOZE = RUBY_PLATFORM =~ /mswin|mingw/
+directory = Dir.pwd
+
+module HashAcess extend OptiFlagSet
+  optional_flag "artist"
+  optional_flag "title"
+  optional_flag "album"
+  optional_flag "comments"
+  and_process!
+end
+
+artist = ARGV.flags[:artist] if ARGV.flags[:artist]
+title = ARGV.flags[:title] if ARGV.flags[:title]
+album = ARGV.flags[:album] if ARGV.flags[:album]
+comments = ARGV.flags[:comments] if ARGV.flags[:comments]
+
+puts "Directory: #{directory}"
+puts "artist: #{artist}" if artist
+puts "title: #{title}" if title
+puts "album: #{album}" if album
+puts "comments: #{comments}" if comments
+
+#cv = Iconv.new( 'windows-1251', 'utf-8' ) unless WINDOZE
+
+def fix(v)
+  v.force_encoding('CP1251').encode('UTF-8')
+end
+
+n = 1
+FileList.new(File.join(directory,"*.mp3")).each do |file|  
+  puts "#{n}\t#{File.basename(file)}"
+  Mp3Info.open(file) do |f|
+    puts f.tag
+    f.tag.artist = fix(f.tag.artist)
+    f.tag.title = fix(f.tag.title)
+    f.tag.album = fix(f.tag.album)
+    f.tag.comments = fix(f.tag.comments)
+    f.tag.tracknum = n
+    f.close
+  end
+  n += 1
+end

@@ -1,0 +1,38 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# {name} 
+# version: 
+# created: {date}
+# updated: {date}
+# 
+# 
+# 
+# usage: {name}
+
+if [ $# -ne 1 ]; then
+	if [ -z $ ]; then                                                                                                                    
+		cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+		exit                                                                                                       
+	fi 
+else
+fi 
+
+echo
+command=`basename $0` 
+echo "start: $command"
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+cmd=""
+echo $cmd
+echo
+$cmd
+echo
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+echo "stop: $command"
+echo

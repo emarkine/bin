@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+# Copyright 2011 EugeneLab   
+# puts "stdin: #{$stdin.read}"
+puts ($stdin.read.to_f / 1024.0).round(2) 
+

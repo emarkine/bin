@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# Copyright 2010 EugeneLab   
+
+require 'rubygems'
+require 'rush'
+
+local = Rush::Box.new('localhost')
+local['/usr/local/nginx/conf/nginx.conf'].vi
+puts `nginx -s stop`
+puts `nginx`
+

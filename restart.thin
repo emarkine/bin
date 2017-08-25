@@ -1,0 +1,27 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# restart.thin 0.0.1
+# 
+# 
+# 
+# usage: restart.thin
+
+echo
+command=`basename $0` 
+echo "start: $command"
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+cmd="thin -C config/thin.yml restart"
+echo $cmd
+echo
+$cmd
+echo
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+echo "stop: $command"
+echo

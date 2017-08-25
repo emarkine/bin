@@ -1,0 +1,25 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# info.certificate.request
+# 
+# Информация о CSR (запроса для сертификата)  
+# 
+# Usage:
+# info.certificate.request point
+
+if [ $# -ne 1 ]; then
+	cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+	exit                                                                                                       
+fi 
+
+point=$1
+csr=$point".csr"
+
+
+echo point=$point
+echo csr=$csr
+
+
+openssl req -in $csr -noout -text
+

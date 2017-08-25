@@ -1,0 +1,3 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+tail -n 100 -f /var/log/secure

@@ -1,0 +1,13 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+
+POINT=$1
+
+if [ -z $POINT ]; then
+	echo "point?"
+	read POINT 
+fi
+
+PASSWORD=$POINT$SALT
+echo $PASSWORD | passwd --stdin $POINT
+echo "password: $PASSWORD"

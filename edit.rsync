@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# Copyright 2011 EugeneLab   
+
+require 'rubygems'
+require 'rush'
+
+local = Rush::Box.new('localhost')
+local['/etc/rsyncd.conf'].vi
+puts `service xinetd restart`
+

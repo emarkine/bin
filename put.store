@@ -1,0 +1,21 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# upload.store
+# 
+# Загрузка файлов для текущей точки разработки `basename `pwd`` с сервера $CLONE_HOST  
+# 
+# Usage:
+# upload.store
+
+local=`pwd`
+point=`basename $local`
+server="$point"
+local_store=$local"/store"
+remote_store=$server":~/"
+
+echo "server: $server"
+echo "local_store: $local_store"
+echo "remote_store: $remote_store"
+
+rsync --progress -lzuogthvr --delete-after --exclude=.*  $local_store $remote_store

@@ -1,0 +1,3 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+diskutil mount -mountPoint /point /dev/disk2s2                                                                                                              

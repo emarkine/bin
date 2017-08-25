@@ -1,0 +1,22 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# info.certificate
+#  
+# Информация о сертификате. 
+# 
+# Usage:
+# info.certificate point
+
+if [ $# -ne 1 ]; then
+	cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+	exit                                                                                                       
+fi 
+
+point=$1
+cert=$point".cer"
+
+echo point=$point
+echo cert=$cert
+
+openssl x509 -noout -in $cert -text

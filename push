@@ -1,0 +1,47 @@
+#!/bin/bash
+# Copyright 2011 EugeneLab   
+# 
+# push 0.0.3
+# 
+# Отправление всех основных файлов (кроме '.*', '*.tmp' и '~*') из текущей директории на сервер <remote> по протоколу SSH
+# Локальная директория берется за основу и с нее делается слепок на <remote> 
+# <remote> передается аргументом командной стороки
+# Если он не передан, то ищется глобальная переменная $REMOTE и строится $remote=$REMOTE:`pwd` 
+# Если и $REMOTE не найдена, то выводится эта справка
+#
+# usage: push <remote>
+
+command=`basename $0` 
+if [ $# -ne 1 ]; then
+	if [ -z $REMOTE ]; then
+#		info command                                                                                                                    
+		cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+		exit                                                                                                       
+	fi 
+	remote=$REMOTE:`pwd`
+else
+	remote=$1
+fi 
+
+if [ -f '.exclude' ]; then
+	exclude=--exclude-from=`pwd`/.exclude 
+fi
+
+echo
+echo "start: $command"
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+echo "remote: $remote"
+cmd="rsync -vrulogtzhx --progress --delete-after --exclude=.* --exclude=*.tmp --exclude=~*  $exclude . $remote"
+echo $cmd
+echo
+$cmd
+echo
+date=`/bin/date +%d-%m-%Y`
+echo "date: $date"
+time=`/bin/date +%H:%M:%S`
+echo "time: $time"
+echo "stop: $command"
+echo

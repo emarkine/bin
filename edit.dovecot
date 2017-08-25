@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# Copyright 2010 EugeneLab   
+
+require 'rubygems'
+require 'rush'
+
+local = Rush::Box.new('localhost')
+local['/etc/dovecot.conf'].vi
+puts `service dovecot restart`
+

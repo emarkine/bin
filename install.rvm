@@ -1,0 +1,3 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2010 EugeneLab   
+bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )                                                                                                           

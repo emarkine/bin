@@ -1,0 +1,17 @@
+#!/bin/sh
+# Push all projects and points
+
+for project in $WORKSPACE_LIST; do
+	echo
+	echo "Project: $project"
+	cd $WORKSPACE/$project
+	gg $1 $WORKSPACE/$project
+done	
+
+for point in $POINT_LIST; do
+	echo
+	echo "Point: $point"
+	cd $POINT/$point
+	gg $1 $POINT/$point
+done	
+

@@ -1,0 +1,29 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# generate.certificate.request
+#  
+# Генерация CSR (запроса для сертификата) для переданного первичного ключа. 
+# Обязательно передавать строку (subject), которая будет включена в сертификат, 
+# например: "/C=NL/ST=North-Holland/L=Amsterdam/O=EugeneLab/OU=Lab/CN=eugenelab.com/emailAddress=info@eugenelab.com"
+# 
+# Usage:
+# generate.certificate.request point subject
+
+if [ $# -ne 2 ]; then
+	cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+	exit                                                                                                       
+fi 
+
+point=$1
+key=$point".key"
+subj=$2
+csr=$point".csr"
+
+echo point=$point
+echo key=$key
+echo subj=$subj
+echo csr=$csr
+
+openssl req -new -nodes -key $key -sha256 -out $csr -subj "$subj"
+

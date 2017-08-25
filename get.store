@@ -1,0 +1,23 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011-2013 EugeneLab
+# 
+# upload.store
+# 
+# Загрузка файлов для текущей точки разработки `basename `pwd`` с сервера  
+# Имя сервера доложно быть определено в ~/.ssh/config и совпадать с имеенем точки разработки (имя директории)
+# Все системные файлы (начинающиеся с точки) ингорируются 
+# 
+# Usage:
+# get.store
+
+local=`pwd`
+point=`basename $local`
+server="$point"
+local_store=$local"/store"
+remote_store=$server":~/store/*"
+
+echo "server: $server"
+echo "local_store: $local_store"
+echo "remote_store: $remote_store"
+
+rsync --progress -lzuogthvr --exclude=.* --delete-after $remote_store $local_store

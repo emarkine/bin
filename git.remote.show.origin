@@ -1,0 +1,11 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# git.remote.show.origin
+# 
+# 
+# 
+# Usage:
+# git.remote.show.origin
+
+git remote show origin

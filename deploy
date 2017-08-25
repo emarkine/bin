@@ -1,0 +1,23 @@
+#!/bin/bash
+# EugeneLab 2017
+
+pwd=`pwd`
+point=`basename $pwd`
+time=`date +%Y-%m-%d.%H:%M`
+message="$time deploy $point"
+
+echo $message
+
+git add .
+git commit -m "$message"
+git push
+
+
+if [ -f '.exclude' ]; then
+	exclude=--exclude-from=`pwd`/.exclude
+fi
+if [ -f '.deploy' ]; then
+	./.deploy
+fi
+rsync --progress -lzuogthvr --delete-after --exclude=Jts --exclude=tmp --exclude=log --exclude=backup --exclude=store --exclude=.* --exclude=Gemfile.lock $exclude --include=.deploy . $point:
+ssh $point "~/.deploy"

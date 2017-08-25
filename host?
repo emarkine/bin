@@ -1,0 +1,33 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# host? 
+# version: 1
+# created: 2011-03-22
+# updated: 2011-03-22
+# 
+# Возвращает true если переданный <host> существует и SSH протокол доступен для текущего пользователя и установлена коммандная среда point
+# 
+# usage: host? <host>
+
+if [ $# -ne 1 ]; then
+	cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+	exit                                                                                                       
+fi 
+
+remote=$1
+
+#ping -c 1 $remote || { echo "does not respond to ping" >&2 ; exit ; }
+#rup $remote || { echo "no rup" >&2; exit; }
+# if you have netcat, and ssh on port 22 on remotehost
+#nc -z $remote 22 || { echo "nobody home on port 22" >&2; exit; }
+#ssh $remote true || { echo "does not let me in" >&2; exit; }
+
+if scp -q $remote:/point/bin/temp /point/bin/
+then
+	echo "$remote: true"
+	exit $?
+else
+	echo "$remote: false"
+	exit $?
+fi

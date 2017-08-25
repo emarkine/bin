@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# Copyright 2011 EugeneLab   
+
+require 'rubygems'
+require 'rake'
+
+dir = ARGV[0] || File.expand_path(".")
+
+def size(dir, hidden = false)
+    # TODO check linux command du -abc
+    puts dir
+    total_size = 0
+    total_files = 0
+    total_directories = 0
+    FileList.new(dir+"/*").each do |path|
+      name = File.basename(path)
+      puts path
+    end
+    { :len => total_size, :directories => total_directories, :files => total_files }
+  end
+
+puts size(dir).inspect

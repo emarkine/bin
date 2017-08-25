@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+#
+
+require 'rubygems' 
+require 'mp3info' 
+require 'rake'
+require 'iconv'
+
+if ARGV.size < 1
+  puts "info mp3 tags for file"	
+  puts "Usage: mp3tag.info <file>"
+  exit -1
+end
+
+WINDOZE = RUBY_PLATFORM =~ /mswin|mingw/
+cv = Iconv.new( 'windows-1251', 'utf-8' ) unless WINDOZE
+file = ARGV[0]
+
+Mp3Info.open(file) do |mp3|
+  mp3.tag.each do |tag,value|
+    value = cv.iconv(value) 
+    #if value.class == String
+    puts "#{tag}: #{value}"
+  end
+end

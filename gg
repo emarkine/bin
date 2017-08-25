@@ -1,0 +1,17 @@
+#!/bin/sh
+
+MSG=$1
+
+if [ -z "$1" ]; then
+	MSG=`date +%Y-%m-%d.%H:%M`
+fi
+
+DIR=$2
+if [ -z "$2" ]; then
+	DIR=`pwd`
+fi
+
+cd $DIR
+git add -A .
+git commit -a -m $MSG
+git push

@@ -1,0 +1,4 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+diskutil umount /dev/disk2s2
+diskutil mount /dev/disk2s2

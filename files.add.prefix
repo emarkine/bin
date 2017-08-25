@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+#
+
+require 'rubygems'
+require 'rake' 
+
+if ARGV.size < 1
+  puts "add prefix to all files in current directory"
+  puts "Usage: files.add.prefix <prefix>"
+  exit -1
+end
+
+prefix = ARGV[0]
+directory = Dir.pwd
+puts "Starts with prefix #{prefix} in directory #{directory}:\n"
+
+FileList.new(File.join(directory,"*")).each do |fname|  
+  oldname = File.basename(fname)
+  newname = prefix + oldname
+  puts "#{oldname} -> #{newname}"
+  File.rename(oldname,newname)
+end

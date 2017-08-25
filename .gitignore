@@ -1,0 +1,18 @@
+# Ignore doc directory
+doc
+
+# Ignore OS directory tmp files
+.directory 
+.DS_Store
+                                                                                                                                                    
+# Ignore IDEA files                                                                                                                             
+.idea                                                                                                                                               
+
+# Ignore Eclipse files
+.settings 
+
+# Ignore NetBeans files
+nbproject 
+ 
+# Ignore Java files
+.class

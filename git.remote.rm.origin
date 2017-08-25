@@ -1,0 +1,11 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# git.remote.rm.origin
+# 
+# 
+# 
+# Usage:
+# git.remote.rm.origin
+
+git remote rm origin

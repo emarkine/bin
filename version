@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+# Copyright 2011 EugeneLab   
+
+require 'rubygems'
+
+
+- команда list выводящая список имен в директории
+- наконец переимонован домашний компьютер из macia (раздражало невероятно из-за ассоциаций с любиными родителями) в lina - причем это такое знакомое мне имя придумала сама Люба :))
+- подключена новая точка music! туда будет сгребаться вся интересная мне музыка. на сервере вот пути связи
+music@clone:~/
+/Volumes/shell/music/collection/
+lina:/point/music/collection/
+era:/point/music/collection/
+mila:/point/music/collection/
+
+13:51 eugene@era:/point/bin $ cat deploy 
+#!/bin/bash
+
+pwd=`pwd`
+point=`basename $pwd`
+echo "deploy point: $point"
+
+if [ -f '.exclude' ]; then
+	exclude=--exclude-from=`pwd`/.exclude
+fi
+
+echo rsync --progress -lzuogthvr --delete-after --exclude=tmp --exclude=log --exclude=.* --exclude=Gemfile.lock $exclude . $point:
+#ssh $SERVER "rake db:migrate"
+#ssh $SERVER "bundler install"
+ssh $point "thin -C config/thin.yml restart"
+13:53 eugene@era:/point/bin $ 
+
+09:55 eugene@mila:/point/bin $ cat git.clone 
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# git.clone
+# 
+# Клонирование проэкта <point> из репозитория git на сервере $CLONE
+# 
+# usage: git.clone <point>
+
+if [ $# -ne 1 ]; then
+	if [ -z $CLONE ]; then                                                                                                                    
+		cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+		exit                                                                                                       
+	fi 
+	dir=`pwd`
+	point=`basename $dir`
+	point=$point@$CLONE
+else
+	point=$1
+fi
+url="ssh://$point/home/git/$point.git"
+
+echo point: $point
+echo url: $url
+
+git clone $url
+09:55 eugene@mila:/point/bin $ 
+
+
+#TODO
+- команда clone.net список серверов к которым я (пользователь eugene) могу доступиться по ssh
+- команда clone.load загружающая (при необходимости) последние изменения в точках из сети (список серверов .net)
+- команда clone.save загружающая (при необходимости)  последние изменения в точках в сеть (список серверов .net)
+- команда info выводит описание node (каждый узел имеет уникальное имя) 

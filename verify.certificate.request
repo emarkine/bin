@@ -1,0 +1,24 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2011 EugeneLab
+# 
+# verify.certificate.request
+# 
+# Верификация CSR (запроса для сертификата) на основе private RSA key 
+# 
+# Usage:
+# verify.certificate.request point
+
+if [ $# -ne 1 ]; then
+	cat $0 | grep '^\# ' | sed -e 's/^\# //' 
+	exit                                                                                                       
+fi 
+
+point=$1
+key=$point".key"
+csr=$point".csr"
+
+echo point=$point
+echo key=$key
+echo csr=$csr
+
+openssl req -noout -verify -key $key -in $csr

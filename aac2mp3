@@ -1,0 +1,20 @@
+#!/bin/bash                                                                                                                             
+# Copyright 2017 EugeneLab
+# 
+# aac2mp3
+# 
+# Convert a sound file format 'aac' to 'mp3' with a low bitrate of 32k
+# 
+# Usage:
+# aac2mp3 [file.aac]
+
+if [ -z "$1" ]; then                                                                                                                    
+    echo 'file.aac?'                                                                                                         
+    exit                                                                                                                                
+fi                                                                                                                                      
+
+input=$1
+name=${input%.aac}
+output=$name.mp3
+
+ffmpeg -i $input  -acodec libmp3lame -ac 2 -ab 32k $output
