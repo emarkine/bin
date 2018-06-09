@@ -1,20 +1,25 @@
 #!/bin/bash                                                                                                                             
-# Copyright 2014 EugeneLab
+# Copyright 2014-2018 EugeneLab
 # 
-# put
+# put: uploading files from the current local directory to the same directory on the server
 # 
-# Загрузка файлов из текущей директории на сервер lab в директорию /store  
-# 
-# Usage:
-# put
 
 
 dir=`pwd`
-point=`basename $dir`
-store="lab:/store/$point"
+last=`basename $dir`
+pattern="/home/$last"
+
+if [ $dir = $pattern ]; then
+	point=$last
+else	
+    point=$USER
+fi
+
+remote="$point:$dir"
 local=$dir/*
 
 echo "local: $local"
-echo "store: $store"
+echo "remote: $remote"
 
-rsync -zuthvr --del --exclude=.*  --progress  $local $store
+rsync -lzuogthvr --delete-after  --exclude=.*  --progress  $local $remote
+

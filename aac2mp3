@@ -17,4 +17,4 @@ input=$1
 name=${input%.aac}
 output=$name.mp3
 
-ffmpeg -i $input  -acodec libmp3lame -ac 2 -ab 32k $output
+ffmpeg -i $input  -acodec libmp3lame -ac 1 -ab 32k $output

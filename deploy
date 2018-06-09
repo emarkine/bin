@@ -19,5 +19,5 @@ fi
 if [ -f '.deploy' ]; then
 	./.deploy
 fi
-rsync --progress -lzuogthvr --delete-after --exclude=Jts --exclude=tmp --exclude=log --exclude=backup --exclude=store --exclude=.* --exclude=Gemfile.lock $exclude --include=.deploy . $point:
+rsync --progress -lzuogthvr --delete-after --exclude=tmp --exclude=log --exclude=backup --exclude=store --exclude=Jts --exclude=.* --exclude=Gemfile.lock $exclude --include=.deploy . $point:
 ssh $point "~/.deploy"

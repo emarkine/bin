@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# Copyright 2011-2018 EugeneLab   
+
+require 'rubygems'
+require 'rush'
+
+  def generatecode( len )
+    len ||= 10
+    chars = ('2'..'9').to_a + ('A'..'Z').to_a
+    chars.delete 'I'
+    chars.delete 'J'
+    chars.delete 'O'
+    chars.delete 'Q'
+    chars.delete 'Y'
+    chars.delete 'V'
+    # puts chars.join
+    str = ''
+    1.upto(len.to_i) do |i|
+      str << chars[rand(chars.size-1)]
+    end
+    str
+  end
+
+local = Rush::Box.new('localhost')
+puts generatecode(ARGV[0])
+ 
+
